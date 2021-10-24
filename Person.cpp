@@ -22,7 +22,7 @@ void Person::write(){
 		return;
 	}
 	for(auto& i : people){
-		fout.write((char*) (*i), sizeof(Person));
+		fout.write((char*) (i), sizeof(Person));
 	}
 }
 
@@ -43,6 +43,6 @@ void Person::read(){
 }
 
 ostream& operator<<(ostream& out, const Person& obj){
-	out << setw(16) << obj.name << setw(10) << obj.id << setw(6) << obj.age << setw(12) << obj.address << endl;
+	out << obj.name << "		" << obj.id << "		" << obj.age << "		" << obj.address << endl;
 	return out;
 }

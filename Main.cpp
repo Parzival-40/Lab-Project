@@ -39,7 +39,7 @@ void reg(type t){
 				case type::Station:
 					Station::add();
 					break;
-				case default:
+				default:
 					break;
 			}
 			break;
@@ -57,7 +57,7 @@ void reg(type t){
 				case type::Station:
 					Station::read();
 					break;
-				case default:
+				default:
 					break;
 			}
 			break;
@@ -75,7 +75,7 @@ void reg(type t){
 				case type::Station:
 					Station::write();
 					break;
-				case default:
+				default:
 					break;
 			}
 			break;
@@ -93,7 +93,7 @@ void reg(type t){
 				case type::Station:
 					Station::display();
 					break;
-				case default:
+				default:
 					break;
 			}
 			break;

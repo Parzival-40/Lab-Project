@@ -7,7 +7,7 @@ class Station{
 public:
 	Station(string name);
 	static int get_fare(Station* from, Station* to);
-	static int count = 0;
+	static int count;
 	static Station* find(string name);
 	static vector<Station*> stations;
 	static void add();

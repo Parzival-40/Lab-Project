@@ -5,17 +5,17 @@ Account::Account(Person* account_holder, int accno)
 	, account_no(accno){}
 
 void Account::withdraw(int b){
-	if(b + 100 <= amount){
+	if(b + 100 <= balance){
 		cout << "Can't Withdraw" << endl;
 	} else{
-		amount -= b;
+		balance -= b;
 		cout << "Ticket Confirmed" << endl;
 	}
 }
 
 void Account::add_money(int b){
 	if(b < 0)return;
-	amount += b;
+	balance += b;
 }
 
 void Account::add(){
@@ -34,7 +34,7 @@ void Account::write(){
 		return;
 	}
 	for(auto& i : accounts){
-		fout.write((char*) (*i), sizeof(Account));
+		fout.write((char*) (i), sizeof(Account));
 	}
 }
 

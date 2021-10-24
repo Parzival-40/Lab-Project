@@ -14,9 +14,11 @@ void Bus::add(){
 }
 
 void Bus::display(){
-	cout << "liscense no: " << lisc_no << endl
-		<< "From Station: " << from->display() << endl
-		<< "To Station: " << to->display() << endl;
+	for(auto& i : buses){
+		cout << "liscense no: " << i->lisc_no << endl;
+		cout << "From Station: "; i->from->display();
+		cout << "To Station: "; i->to->display();
+	}
 }
 
 void Bus::write(){
@@ -25,7 +27,7 @@ void Bus::write(){
 		return;
 	}
 	for(auto& i : buses){
-		fout.write((char*) (*i), sizeof(Bus));
+		fout.write((char*) (i), sizeof(Bus));
 	}
 }
 
