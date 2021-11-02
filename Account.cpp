@@ -3,15 +3,19 @@
 Account::Account(Person* account_holder, int accno)
 	:account_holder(account_holder)
 	, account_no(accno)
-	, balance(0) {}
+	, balance(0) {
+	account_holder->setacc(this);
+	min_bal = 100;
+}
 
 void Account::withdraw(int b){
-	if(b + 100 <= balance){
-		cout << "Can't Withdraw" << endl;
-	} else{
-		balance -= b;
-		cout << "Ticket Confirmed" << endl;
+	if(b + min_bal <= balance){
+		throw("Not enough balance");
 	}
+	
+	balance -= b;
+	cout << "Ticket Confirmed" << endl;
+	
 }
 
 void Account::add_money(int b){
@@ -19,14 +23,23 @@ void Account::add_money(int b){
 	balance += b;
 }
 
+void Account::set_min_bal(int b){
+	min_bal = b;
+}
+
 void Account::add(){
-	//TODO
-	//complete in accordance to bus class
+	int id;
+	int accno;
+	cout << "ID: "; cin >> id;
+	cout << "Account No.: "; cin >> accno;
+	accounts.push_back(new Account(Person::find(id), accno));
 }
 
 void Account::display(){
-	//TODO
-	//complete in accordance to bus class
+	for(auto& i : accounts){
+		cout << "Account holder info: " << endl;
+		i->account_holder->print();
+	}
 }
 
 void Account::write(){
@@ -53,9 +66,4 @@ void Account::read(){
 		fin.read((char*) temp, sizeof(Account));
 		accounts.push_back(temp);
 	}
-}
-
-ostream& operator<<(ostream& out, const Account& obj){
-	out << obj.account_no << "    " << obj.balance << endl;
-	return out;
 }

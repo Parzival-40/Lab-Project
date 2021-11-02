@@ -6,6 +6,13 @@ Person::Person(int id, string name, int age, string address)
 	, age(age)
 	, address(address){}
 
+Person* Person::find(const int& checkid){
+	for(auto& i : people){
+		if(i->id == checkid)return i;
+	}
+	return nullptr;
+}
+
 void Person::add(){
 	int id;
 	string name;
@@ -20,10 +27,7 @@ void Person::add(){
 
 void Person::display(){
 	for(auto& i : people){
-		cout << "ID: "<<i->id<<endl;
-		cout << "Name: "<<i->name<<endl;
-		cout << "Age: "<<i->age<<endl;
-		cout << "Address: "<< i->address<<endl;
+		i->print();
 	}
 }
 
@@ -53,7 +57,13 @@ void Person::read(){
 	}
 }
 
-ostream& operator<<(ostream& out, const Person& obj){
-	out << obj.name << "		" << obj.id << "		" << obj.age << "		" << obj.address << endl;
-	return out;
+void Person::print(){
+	cout << "ID: " << id << endl;
+	cout << "Name: " << name << endl;
+	cout << "Age: " << age << endl;
+	cout << "Address: " << address << endl;
+}
+
+void Person::setacc(Account* account){
+	acc = account;
 }

@@ -3,21 +3,35 @@
 #include <fstream>
 #include <vector>
 #include "Person.h"
+
 using namespace std;
+
+//////////////////////////////////////////////////////////////////////////
+//																		//
+//	An Account is as it says, a account for transaction of bus fare		//
+//	Account holder uses the account to add or withdraw money to or		//
+//	from his account and pays his fare									//
+//																		//
+//////////////////////////////////////////////////////////////////////////
+
+
 class Account{
 public:
 	Account(Person* account_holder, int accno);
-	Account() = default;
+	
 	void withdraw(int b);
 	void add_money(int b);
-	friend ostream& operator <<(ostream& out, const Account& obj);
+	void set_min_bal(int b);
+
 	static vector<Account*> accounts;
 	static void add();
 	static void display();
 	static void write();
 	static void read();
+
 private:
 	Person* account_holder;
 	int account_no;
 	int balance;
+	int min_bal;
 };
