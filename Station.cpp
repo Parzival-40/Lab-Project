@@ -16,21 +16,39 @@ Station* Station::find(string name){
 }
 
 void Station::add(){
-	//TODO
-	//complete in accordance to bus class
+	string name;
+	cout << "Station Name: "; cin >> name;
+	stations.push_back(new Station(name));
 }
 
 void Station::display(){
-	//TODO
-	//complete in accordance to bus class
+	for(auto& i : stations){
+		cout << "Name: " << i->name << endl;
+	}
 }
 
 void Station::write(){
-	//TODO
-	//complete in accordance to bus class
+	ofstream fout("station.dat", ios::trunc | ios::binary);
+	if(!fout){
+		return;
+	}
+	for(auto& i : stations){
+		fout.write((char*)(i), sizeof(Station));
+	}
 }
 
 void Station::read(){
-	//TODO
-	//complete in accordance to bus class
+	if(!stations.empty()){
+		stations.clear();
+		stations.resize(0);
+	}
+	ifstream fin("station.dat", ios::binary);
+	if(!fin){
+		return;
+	}
+	while(!fin.eof()){
+		Station* temp = nullptr;
+		fin.read((char*)temp, sizeof(Station));
+		stations.push_back(temp);
+	}
 }

@@ -7,6 +7,7 @@ using namespace std;
 class Account{
 public:
 	Account(Person* account_holder, int accno);
+	Account() = default;
 	void withdraw(int b);
 	void add_money(int b);
 	friend ostream& operator <<(ostream& out, const Account& obj);

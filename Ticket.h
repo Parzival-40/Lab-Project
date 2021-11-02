@@ -4,7 +4,8 @@
 #include "Station.h"
 class Ticket{
 public:
-	Ticket(Bus* bus, Station* from, Station* to, Passenger* holder);
+	Ticket(Bus* bus, Station* from, Station* to);
+	Ticket() = default;
 private:
 	Bus* bus;
 	Station* from;

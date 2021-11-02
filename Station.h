@@ -6,6 +6,7 @@ using namespace std;
 class Station{
 public:
 	Station(string name);
+	Station() = default;
 	static int get_fare(Station* from, Station* to);
 	static int count;
 	static Station* find(string name);

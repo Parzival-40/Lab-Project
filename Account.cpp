@@ -2,7 +2,8 @@
 
 Account::Account(Person* account_holder, int accno)
 	:account_holder(account_holder)
-	, account_no(accno){}
+	, account_no(accno)
+	, balance(0) {}
 
 void Account::withdraw(int b){
 	if(b + 100 <= balance){

@@ -7,13 +7,24 @@ Person::Person(int id, string name, int age, string address)
 	, address(address){}
 
 void Person::add(){
-	//TODO
-	//complete in accordance to bus class
+	int id;
+	string name;
+	int age;
+	string address;
+	cout << "ID: "; cin >> id;
+	cout << "Name: "; cin >> name;
+	cout << "Age: "; cin >> age;
+	cout << "Address: "; cin >> address;
+	people.push_back(new Person(id, name, age, address));
 }
 
 void Person::display(){
-	//TODO
-	//complete in accordance to bus class
+	for(auto& i : people){
+		cout << "ID: "<<i->id<<endl;
+		cout << "Name: "<<i->name<<endl;
+		cout << "Age: "<<i->age<<endl;
+		cout << "Address: "<< i->address<<endl;
+	}
 }
 
 void Person::write(){
