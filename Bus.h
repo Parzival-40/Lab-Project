@@ -1,7 +1,7 @@
 #pragma once
-#include "Station.h"
 #include <iostream>
 #include <vector>
+#include "Station.h"
 
 using namespace std;
 
@@ -29,3 +29,5 @@ private:
 	Station* from;
 	Station* to;
 };
+
+vector<Bus*> Bus::buses;

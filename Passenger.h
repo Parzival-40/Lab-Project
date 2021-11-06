@@ -2,7 +2,6 @@
 #include "Station.h"
 #include "Bus.h"
 #include "Person.h"
-#include "Account.h"
 #include "Ticket.h"
 
 using namespace std;

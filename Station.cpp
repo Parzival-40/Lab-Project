@@ -1,7 +1,7 @@
 #include "Station.h"
 
 Station::Station(string name):name(name){
-	dist = count++;
+	dist = Station::count++;
 }
 
 int Station::get_fare(Station* from, Station* to){
@@ -9,7 +9,7 @@ int Station::get_fare(Station* from, Station* to){
 }
 
 Station* Station::find(string name){
-	for(auto& i : stations){
+	for(auto& i : Station::stations){
 		if(name == i->name)return i;
 	}
 	return nullptr;
@@ -18,11 +18,11 @@ Station* Station::find(string name){
 void Station::add(){
 	string name;
 	cout << "Station Name: "; cin >> name;
-	stations.push_back(new Station(name));
+	Station::stations.push_back(new Station(name));
 }
 
 void Station::display(){
-	for(auto& i : stations){
+	for(auto& i : Station::stations){
 		cout << "Name: " << i->name << endl;
 	}
 }
@@ -32,15 +32,15 @@ void Station::write(){
 	if(!fout){
 		return;
 	}
-	for(auto& i : stations){
+	for(auto& i : Station::stations){
 		fout.write((char*)(i), sizeof(Station));
 	}
 }
 
 void Station::read(){
-	if(!stations.empty()){
-		stations.clear();
-		stations.resize(0);
+	if(!Station::stations.empty()){
+		Station::stations.clear();
+		Station::stations.resize(0);
 	}
 	ifstream fin("station.dat", ios::binary);
 	if(!fin){
@@ -49,6 +49,6 @@ void Station::read(){
 	while(!fin.eof()){
 		Station* temp = nullptr;
 		fin.read((char*)temp, sizeof(Station));
-		stations.push_back(temp);
+		Station::stations.push_back(temp);
 	}
 }

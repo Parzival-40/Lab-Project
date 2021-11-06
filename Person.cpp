@@ -4,10 +4,11 @@ Person::Person(int id, string name, int age, string address)
 	:id(id)
 	, name(name)
 	, age(age)
-	, address(address){}
+	, address(address)
+	, acc(nullptr){}
 
 Person* Person::find(const int& checkid){
-	for(auto& i : people){
+	for(auto& i : Person::people){
 		if(i->id == checkid)return i;
 	}
 	return nullptr;
@@ -22,11 +23,11 @@ void Person::add(){
 	cout << "Name: "; cin >> name;
 	cout << "Age: "; cin >> age;
 	cout << "Address: "; cin >> address;
-	people.push_back(new Person(id, name, age, address));
+	Person::people.push_back(new Person(id, name, age, address));
 }
 
 void Person::display(){
-	for(auto& i : people){
+	for(auto& i : Person::people){
 		i->print();
 	}
 }
@@ -36,15 +37,15 @@ void Person::write(){
 	if(!fout){
 		return;
 	}
-	for(auto& i : people){
+	for(auto& i : Person::people){
 		fout.write((char*) (i), sizeof(Person));
 	}
 }
 
 void Person::read(){
-	if(!people.empty()){
-		people.clear();
-		people.resize(0);
+	if(!Person::people.empty()){
+		Person::people.clear();
+		Person::people.resize(0);
 	}
 	ifstream fin("ppl.dat", ios::binary);
 	if(!fin){
@@ -53,7 +54,7 @@ void Person::read(){
 	while(!fin.eof()){
 		Person* temp = nullptr;
 		fin.read((char*) temp, sizeof(Person));
-		people.push_back(temp);
+		Person::people.push_back(temp);
 	}
 }
 

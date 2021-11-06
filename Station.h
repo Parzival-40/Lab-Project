@@ -29,3 +29,6 @@ private:
 	string name;
 	int dist;
 };
+
+int Station::count = 0;
+vector<Station*> Station::stations;

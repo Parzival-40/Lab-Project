@@ -1,5 +1,6 @@
 #include "Account.h"
 
+
 Account::Account(Person* account_holder, int accno)
 	:account_holder(account_holder)
 	, account_no(accno)
@@ -32,11 +33,11 @@ void Account::add(){
 	int accno;
 	cout << "ID: "; cin >> id;
 	cout << "Account No.: "; cin >> accno;
-	accounts.push_back(new Account(Person::find(id), accno));
+	Account::accounts.push_back(new Account(Person::find(id), accno));
 }
 
 void Account::display(){
-	for(auto& i : accounts){
+	for(auto& i : Account::accounts){
 		cout << "Account holder info: " << endl;
 		i->account_holder->print();
 	}
@@ -47,15 +48,15 @@ void Account::write(){
 	if(!fout){
 		return;
 	}
-	for(auto& i : accounts){
+	for(auto& i : Account::accounts){
 		fout.write((char*) (i), sizeof(Account));
 	}
 }
 
 void Account::read(){
-	if(!accounts.empty()){
-		accounts.clear();
-		accounts.resize(0);
+	if(!Account::accounts.empty()){
+		Account::accounts.clear();
+		Account::accounts.resize(0);
 	}
 	ifstream fin("acc.dat", ios::binary);
 	if(!fin){
@@ -64,6 +65,6 @@ void Account::read(){
 	while(!fin.eof()){
 		Account* temp = nullptr;
 		fin.read((char*) temp, sizeof(Account));
-		accounts.push_back(temp);
+		Account::accounts.push_back(temp);
 	}
 }

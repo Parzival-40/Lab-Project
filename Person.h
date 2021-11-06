@@ -12,6 +12,7 @@ using namespace std;
 //								//
 //////////////////////////////////
 
+class Account;
 
 class Person{
 public:
@@ -35,3 +36,6 @@ protected:
 	string address;
 	Account* acc;
 };
+
+vector<Person*> Person::people;
+

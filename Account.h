@@ -14,6 +14,7 @@ using namespace std;
 //																		//
 //////////////////////////////////////////////////////////////////////////
 
+class Person;
 
 class Account{
 public:
@@ -35,3 +36,5 @@ private:
 	int balance;
 	int min_bal;
 };
+
+vector<Account*> Account::accounts;

@@ -1,7 +1,8 @@
 #include "Passenger.h"
 
 Passenger::Passenger(Person* ref)
-	:Passenger::Person(*ref){}
+	:Passenger::Person(*ref)
+	,hisTicket(nullptr){}
 
 Passenger::~Passenger(){
 	delete(hisTicket);
