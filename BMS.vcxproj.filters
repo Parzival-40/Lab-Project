@@ -15,51 +15,51 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="source\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Account.cpp">
+    <ClCompile Include="source\Account.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bus.cpp">
+    <ClCompile Include="source\Bus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Person.cpp">
+    <ClCompile Include="source\Person.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Station.cpp">
+    <ClCompile Include="source\Station.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Driver.cpp">
+    <ClCompile Include="source\Driver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Passenger.cpp">
+    <ClCompile Include="source\Passenger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ticket.cpp">
+    <ClCompile Include="source\Ticket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Account.h">
+    <ClInclude Include="header\Account.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bus.h">
+    <ClInclude Include="header\Bus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Person.h">
+    <ClInclude Include="header\Person.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Station.h">
+    <ClInclude Include="header\Station.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Driver.h">
+    <ClInclude Include="header\Driver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Passenger.h">
+    <ClInclude Include="header\Passenger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ticket.h">
+    <ClInclude Include="header\Ticket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

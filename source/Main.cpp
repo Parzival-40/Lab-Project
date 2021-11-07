@@ -11,17 +11,42 @@
 #include "Ticket.h"
 #include "Passenger.h"
 
-using namespace std;
-
 enum class type{
-	Account, Bus, Person, Station, Driver, Ticket, Passenger
+	Account,
+	Bus,
+	Person,
+	Station,
+	Driver,
+	Ticket,
+	Passenger
+
 };
 
+void init(){
+	try{
+		Account::read();
+		Bus::read();
+		Person::read();
+		Station::read();
+	} catch(const string& e){
+		cout << e << endl;
+	}
+}
+void commit(){
+	try{
+		Account::write();
+		Bus::write();
+		Person::write();
+		Station::write();
+	} catch(const string& e){
+		cout << e << endl;
+	}
+}
 void reg(type t){
-	cout << "1.. add a bus to the database." << endl
-		<< "2.. read data from the database." << endl
-		<< "3.. write data to the database." << endl
-		<< "4.. view data from the database." << endl;
+	cout << "[1] add" << endl
+		<< "[2] read" << endl
+		<< "[3] write" << endl
+		<< "[4] view" << endl;
 	int c;
 	cin >> c;
 	switch(c){
@@ -101,26 +126,46 @@ void reg(type t){
 }
 
 int main(){
-	cout << "1.. for Account" << endl
-		<< "2.. for Bus" << endl
-		<< "3.. for Person" << endl
-		<< "4.. for Station" << endl;
-	int c;
-	cin >> c;
-	switch(c){
-		case 1:
-			reg(type::Account);
-			break;
-		case 2:
-			reg(type::Bus);
-			break;
-		case 3:
-			reg(type::Person);
-			break;
-		case 4:
-			reg(type::Station);
-			break;
-		default:
-			break;
+
+	//init();
+
+	bool running = true;
+
+	while(running){
+		cout << "[1] Manage people information" << endl
+			<< "[2] Manage account information" << endl
+			<< "[3] Manage bus information" << endl
+			<< "[4] Manage Station information" << endl
+			<< "[0] exit" << endl;
+
+		int c;
+		cin >> c;
+		try{
+			switch(c){
+				case 0:
+					running = false;
+					break;
+				case 1:
+					reg(type::Person);
+					break;
+				case 2:
+					reg(type::Account);
+					break;
+				case 3:
+					reg(type::Bus);
+					break;
+				case 4:
+					reg(type::Station);
+					break;
+				default:
+					break;
+			}
+		} catch(const string& e){
+			cout << e << endl;
+		}
 	}
+
+	 //commit();
+
+	cin.get();
 }

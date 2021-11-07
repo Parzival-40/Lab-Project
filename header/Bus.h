@@ -17,6 +17,7 @@ class Bus{
 public:
 	Bus(int lisc_no, Station* from, Station* to);
 	Bus() = default;
+	void print();
 
 	static vector<Bus*> buses;
 	static void add();
@@ -29,5 +30,3 @@ private:
 	Station* from;
 	Station* to;
 };
-
-vector<Bus*> Bus::buses;

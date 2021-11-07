@@ -16,10 +16,12 @@ public:
 	Station(string name);
 	Station() = default;
 
+	void print();
+
 	static int get_fare(Station* from, Station* to);
 	static int count;
-	static Station* find(string name);
 	static vector<Station*> stations;
+	static Station* find(string name);
 	static void add();
 	static void display();
 	static void write();
@@ -29,6 +31,3 @@ private:
 	string name;
 	int dist;
 };
-
-int Station::count = 0;
-vector<Station*> Station::stations;

@@ -1,5 +1,6 @@
 #include "Account.h"
 
+vector<Account*> Account::accounts;
 
 Account::Account(Person* account_holder, int accno)
 	:account_holder(account_holder)
@@ -33,7 +34,14 @@ void Account::add(){
 	int accno;
 	cout << "ID: "; cin >> id;
 	cout << "Account No.: "; cin >> accno;
-	Account::accounts.push_back(new Account(Person::find(id), accno));
+	Person* temp = nullptr;
+	try{
+		temp=Person::find(id);
+	} catch(const string& e){
+		cout << e << endl;
+		return;
+	}
+	Account::accounts.push_back(new Account(temp, accno));
 }
 
 void Account::display(){
@@ -46,25 +54,26 @@ void Account::display(){
 void Account::write(){
 	ofstream fout("acc.dat", ios::trunc | ios::binary);
 	if(!fout){
-		return;
+		throw "Account database write error!!!";
 	}
 	for(auto& i : Account::accounts){
-		fout.write((char*) (i), sizeof(Account));
+		fout.write((char*) i, sizeof(Account));
 	}
+	fout.close();
 }
 
 void Account::read(){
 	if(!Account::accounts.empty()){
 		Account::accounts.clear();
-		Account::accounts.resize(0);
 	}
 	ifstream fin("acc.dat", ios::binary);
 	if(!fin){
-		return;
+		throw "Acount database write error!!!";
 	}
 	while(!fin.eof()){
-		Account* temp = nullptr;
-		fin.read((char*) temp, sizeof(Account));
-		Account::accounts.push_back(temp);
+		Account temp;
+		fin.read((char*) &temp, sizeof(Account));
+		Account::accounts.push_back(&temp);
 	}
+	fin.close();
 }

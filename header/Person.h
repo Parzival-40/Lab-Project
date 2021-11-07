@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <string>
 #include "Account.h"
 
 using namespace std;
@@ -36,6 +37,3 @@ protected:
 	string address;
 	Account* acc;
 };
-
-vector<Person*> Person::people;
-

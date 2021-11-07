@@ -1,5 +1,7 @@
 #include "Person.h"
 
+vector<Person*> Person::people;
+
 Person::Person(int id, string name, int age, string address)
 	:id(id)
 	, name(name)
@@ -11,7 +13,7 @@ Person* Person::find(const int& checkid){
 	for(auto& i : Person::people){
 		if(i->id == checkid)return i;
 	}
-	return nullptr;
+	throw "person with id: " + to_string(checkid) + " not found in person database!!!";
 }
 
 void Person::add(){
@@ -35,27 +37,28 @@ void Person::display(){
 void Person::write(){
 	ofstream fout("ppl.dat", ios::trunc | ios::binary);
 	if(!fout){
-		return;
+		throw "People database write error!!!";
 	}
 	for(auto& i : Person::people){
-		fout.write((char*) (i), sizeof(Person));
+		fout.write((char*) i, sizeof(Person));
 	}
+	fout.close();
 }
 
 void Person::read(){
 	if(!Person::people.empty()){
 		Person::people.clear();
-		Person::people.resize(0);
 	}
 	ifstream fin("ppl.dat", ios::binary);
 	if(!fin){
-		return;
+		throw "People database read error!!!";
 	}
 	while(!fin.eof()){
-		Person* temp = nullptr;
-		fin.read((char*) temp, sizeof(Person));
-		Person::people.push_back(temp);
+		Person temp ;
+		fin.read((char*) &temp, sizeof(Person));
+		Person::people.push_back(&temp);
 	}
+	fin.close();
 }
 
 void Person::print(){
