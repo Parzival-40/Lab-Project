@@ -187,8 +187,12 @@ void reg(type t){
 		int c;
 		if(!(cin >> c)||c<0||c>4){
 			cout << "Please enter a valid choice" << endl;
+
 			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cin.get();
+			system("cls");
+			continue;
 		}
 		system("cls");
 		switch(c){
@@ -211,15 +215,24 @@ void reg(type t){
 				break;
 		}
 		cout << "perss any key to continue...";
+
 		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin.get();
 		system("cls");
 	}
 }
 
 int main(){
-
+	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+	cout << "initializing database" << endl;
 	init();
+	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+
+	cout << "perss any key to continue...";
+
+	cin.get();
+	system("cls");
 
 	bool running = true;
 
@@ -232,11 +245,16 @@ int main(){
 			<< "[0] exit" << endl;
 		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 
+
 		int c;
 		if(!(cin >> c) || c < 0 || c>4){
 			cout << "please enter a valid choice";
+
 			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cin.get();
+			system("cls");
+			continue;
 		}
 		system("cls");
 		switch(c){
@@ -258,9 +276,23 @@ int main(){
 			default:
 				break;
 		}
+		cout << "perss any key to continue...";
+
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin.get();
+		system("cls");
 	}
 
-	 commit();
+	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+	cout << "Writing changes to database" << endl;
+	commit();
+	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+	
+	cin.get();
+	system("cls");
+
+	cout << "perss any key to exit...";
 
 	cin.get();
 }
