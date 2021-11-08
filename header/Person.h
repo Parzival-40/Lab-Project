@@ -18,10 +18,11 @@ class Account;
 class Person{
 public:
 	Person(int id, string name, int age, string address);
-	Person() = default;
+	Person();
 
 	void print();
 	void setacc(Account*);
+	bool empty();
 	
 	static vector<Person*> people;
 	static Person* find(const int&);
@@ -36,4 +37,5 @@ protected:
 	int age;
 	string address;
 	Account* acc;
+	bool isEmpty;
 };

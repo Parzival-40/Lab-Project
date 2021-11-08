@@ -14,9 +14,10 @@ using namespace std;
 class Station{
 public:
 	Station(string name);
-	Station() = default;
+	Station();
 
 	void print();
+	bool empty();
 
 	static int get_fare(Station* from, Station* to);
 	static int count;
@@ -30,4 +31,5 @@ public:
 private:
 	string name;
 	int dist;
+	bool isEmpty;
 };

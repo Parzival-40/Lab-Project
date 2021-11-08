@@ -16,8 +16,9 @@ using namespace std;
 class Bus{
 public:
 	Bus(int lisc_no, Station* from, Station* to);
-	Bus() = default;
+	Bus();
 	void print();
+	bool empty();
 
 	static vector<Bus*> buses;
 	static void add();
@@ -29,4 +30,5 @@ private:
 	int lisc_no;
 	Station* from;
 	Station* to;
+	bool isEmpty;
 };

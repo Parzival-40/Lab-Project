@@ -3,12 +3,20 @@
 vector<Account*> Account::accounts;
 
 Account::Account(Person* account_holder, int accno)
-	:account_holder(account_holder)
-	, account_no(accno)
-	, balance(0) {
+	:isEmpty(false)
+	,account_holder(account_holder)
+	,account_no(accno)
+	,balance(NULL)
+	,min_bal(NULL){
 	account_holder->setacc(this);
-	min_bal = 100;
 }
+
+Account::Account()
+	:isEmpty(true)
+	,account_holder(nullptr)
+	,account_no(NULL)
+	,balance(NULL)
+	,min_bal(NULL){}
 
 void Account::withdraw(int b){
 	if(b + min_bal <= balance){
@@ -29,7 +37,20 @@ void Account::set_min_bal(int b){
 	min_bal = b;
 }
 
+void Account::print(){
+	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+	cout << "Account no.: " << account_no << endl;
+	cout << "Account holder: " << endl;
+	account_holder->print();
+	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+}
+
+bool Account::empty(){
+	return isEmpty;
+}
+
 void Account::add(){
+	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 	int id;
 	int accno;
 	cout << "ID: "; cin >> id;
@@ -39,9 +60,12 @@ void Account::add(){
 		temp=Person::find(id);
 	} catch(const string& e){
 		cout << e << endl;
+		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 		return;
 	}
 	Account::accounts.push_back(new Account(temp, accno));
+	cout << "success" << endl;
+	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 }
 
 void Account::display(){
@@ -52,28 +76,46 @@ void Account::display(){
 }
 
 void Account::write(){
-	ofstream fout("acc.dat", ios::trunc | ios::binary);
+	ofstream fout(".data/acc.dat", ios::trunc | ios::binary);
 	if(!fout){
 		throw "Account database write error!!!";
 	}
 	for(auto& i : Account::accounts){
+		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+		cout << "writing" << endl;
+		i->print();
 		fout.write((char*) i, sizeof(Account));
+		cout << "success" << endl;
+		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+	}
+	if(Account::accounts.empty()){
+		throw "database is empty!!!";
 	}
 	fout.close();
 }
 
 void Account::read(){
 	if(!Account::accounts.empty()){
+		for(auto& i : Account::accounts)delete(i);
 		Account::accounts.clear();
 	}
-	ifstream fin("acc.dat", ios::binary);
+	ifstream fin(".data/acc.dat", ios::binary);
 	if(!fin){
-		throw "Acount database write error!!!";
+		throw "Acount database read error!!!";
 	}
 	while(!fin.eof()){
-		Account temp;
-		fin.read((char*) &temp, sizeof(Account));
-		Account::accounts.push_back(&temp);
+		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+		cout << "reading" << endl;
+		Account* temp = new Account;
+		fin.read((char*) temp, sizeof(Account));
+		if(temp->empty()){
+			delete(temp);
+			throw "database empty!!!";
+		}
+		temp->print();
+		Account::accounts.push_back(temp);
+		cout << "success" << endl;
+		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 	}
 	fin.close();
 }

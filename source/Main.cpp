@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 #include <map>
 #include <vector>
 
@@ -24,148 +25,242 @@ enum class type{
 
 void init(){
 	try{
-		Account::read();
-		Bus::read();
 		Person::read();
+	} catch(const char* e){
+		cout << e << endl;
+	}
+	try{
+		Account::read();
+	} catch(const char* e){
+		cout << e << endl;
+	}
+	try{
 		Station::read();
-	} catch(const string& e){
+	} catch(const char* e){
+		cout << e << endl;
+	}
+	try{
+		Bus::read();
+	} catch(const char* e){
 		cout << e << endl;
 	}
 }
 void commit(){
 	try{
-		Account::write();
-		Bus::write();
 		Person::write();
+	} catch(const char* e){
+		cout << e << endl;
+	}
+	try{
+		Account::write();
+	} catch(const char* e){
+		cout << e << endl;
+	}
+	try{
 		Station::write();
-	} catch(const string& e){
+	} catch(const char* e){
+		cout << e << endl;
+	}
+	try{
+		Bus::write();
+	} catch(const char* e){
 		cout << e << endl;
 	}
 }
+
+void add(type t){
+	switch(t){
+		case type::Account:
+			Account::add();
+			break;
+		case type::Bus:
+			Bus::add();
+			break;
+		case type::Person:
+			Person::add();
+			break;
+		case type::Station:
+			Station::add();
+			break;
+		default:
+			break;
+	}
+}
+void read(type t){
+	switch(t){
+		case type::Account:
+			try{
+				Account::read();
+			} catch(const string& e){
+				cout << e << endl;
+			}
+			break;
+		case type::Bus:
+			try{
+				Bus::read();
+			} catch(const string& e){
+				cout << e << endl;
+			}
+			break;
+		case type::Person:
+			try{
+				Person::read();
+			} catch(const string& e){
+				cout << e << endl;
+			}
+			break;
+		case type::Station:
+			try{
+				Station::read();
+			} catch(const string& e){
+				cout << e << endl;
+			}
+			break;
+		default:
+			break;
+	}
+}
+void write(type t){
+	switch(t){
+		case type::Account:
+			try{
+				Account::write();
+			} catch(const string& e){
+				cout << e << endl;
+			}
+			break;
+		case type::Bus:
+			try{
+				Bus::write();
+			} catch(const string& e){
+				cout << e << endl;
+			}
+			break;
+		case type::Person:
+			try{
+				Person::write();
+			} catch(const string& e){
+				cout << e << endl;
+			}
+			break;
+		case type::Station:
+			try{
+				Station::write();
+			} catch(const string& e){
+				cout << e << endl;
+			}
+			break;
+		default:
+			break;
+	}
+}
+void display(type t){
+	switch(t){
+		case type::Account:
+			Account::display();
+			break;
+		case type::Bus:
+			Bus::display();
+			break;
+		case type::Person:
+			Person::display();
+			break;
+		case type::Station:
+			Station::display();
+			break;
+		default:
+			break;
+	}
+}
+
 void reg(type t){
-	cout << "[1] add" << endl
-		<< "[2] read" << endl
-		<< "[3] write" << endl
-		<< "[4] view" << endl;
-	int c;
-	cin >> c;
-	switch(c){
-		case 1:
-			switch(t){
-				case type::Account:
-					Account::add();
-					break;
-				case type::Bus:
-					Bus::add();
-					break;
-				case type::Person:
-					Person::add();
-					break;
-				case type::Station:
-					Station::add();
-					break;
-				default:
-					break;
-			}
-			break;
-		case 2:
-			switch(t){
-				case type::Account:
-					Account::read();
-					break;
-				case type::Bus:
-					Bus::read();
-					break;
-				case type::Person:
-					Person::read();
-					break;
-				case type::Station:
-					Station::read();
-					break;
-				default:
-					break;
-			}
-			break;
-		case 3:
-			switch(t){
-				case type::Account:
-					Account::write();
-					break;
-				case type::Bus:
-					Bus::write();
-					break;
-				case type::Person:
-					Person::write();
-					break;
-				case type::Station:
-					Station::write();
-					break;
-				default:
-					break;
-			}
-			break;
-		case 4:
-			switch(t){
-				case type::Account:
-					Account::display();
-					break;
-				case type::Bus:
-					Bus::display();
-					break;
-				case type::Person:
-					Person::display();
-					break;
-				case type::Station:
-					Station::display();
-					break;
-				default:
-					break;
-			}
-			break;
+	bool running = true;
+	while(running){
+		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+		cout << "[1] add" << endl
+			<< "[2] read" << endl
+			<< "[3] write" << endl
+			<< "[4] view" << endl
+			<< "[0] close" << endl;
+		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+		
+		int c;
+		if(!(cin >> c)||c<0||c>4){
+			cout << "Please enter a valid choice" << endl;
+			cin.clear();
+			cin.get();
+		}
+		system("cls");
+		switch(c){
+			case 0:
+				running = false;
+				break;
+			case 1:
+				add(t);
+				break;
+			case 2:
+				read(t);
+				break;
+			case 3:
+				write(t);
+				break;
+			case 4:
+				display(t);
+				break;
+			default:
+				break;
+		}
+		cout << "perss any key to continue...";
+		cin.clear();
+		cin.get();
+		system("cls");
 	}
 }
 
 int main(){
 
-	//init();
+	init();
 
 	bool running = true;
 
 	while(running){
-		cout << "[1] Manage people information" << endl
+		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+		cout<< "[1] Manage people information" << endl
 			<< "[2] Manage account information" << endl
 			<< "[3] Manage bus information" << endl
 			<< "[4] Manage Station information" << endl
 			<< "[0] exit" << endl;
+		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 
 		int c;
-		cin >> c;
-		try{
-			switch(c){
-				case 0:
-					running = false;
-					break;
-				case 1:
-					reg(type::Person);
-					break;
-				case 2:
-					reg(type::Account);
-					break;
-				case 3:
-					reg(type::Bus);
-					break;
-				case 4:
-					reg(type::Station);
-					break;
-				default:
-					break;
-			}
-		} catch(const string& e){
-			cout << e << endl;
+		if(!(cin >> c) || c < 0 || c>4){
+			cout << "please enter a valid choice";
+			cin.clear();
+			cin.get();
+		}
+		system("cls");
+		switch(c){
+			case 0:
+				running = false;
+				break;
+			case 1:
+				reg(type::Person);
+				break;
+			case 2:
+				reg(type::Account);
+				break;
+			case 3:
+				reg(type::Bus);
+				break;
+			case 4:
+				reg(type::Station);
+				break;
+			default:
+				break;
 		}
 	}
 
-	 //commit();
+	 commit();
 
 	cin.get();
 }

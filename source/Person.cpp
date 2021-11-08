@@ -3,11 +3,20 @@
 vector<Person*> Person::people;
 
 Person::Person(int id, string name, int age, string address)
-	:id(id)
+	:isEmpty(false)
+	, id(id)
 	, name(name)
 	, age(age)
 	, address(address)
 	, acc(nullptr){}
+
+Person::Person()
+	:isEmpty(true)
+	,id(NULL)
+	,name("")
+	,age(NULL)
+	,address("")
+	,acc(nullptr){}
 
 Person* Person::find(const int& checkid){
 	for(auto& i : Person::people){
@@ -17,15 +26,18 @@ Person* Person::find(const int& checkid){
 }
 
 void Person::add(){
-	int id;
+	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 	string name;
+	int id;
 	int age;
 	string address;
-	cout << "ID: "; cin >> id;
 	cout << "Name: "; cin >> name;
+	cout << "ID: "; cin >> id;
 	cout << "Age: "; cin >> age;
 	cout << "Address: "; cin >> address;
 	Person::people.push_back(new Person(id, name, age, address));
+	cout << "success" << endl;
+	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 }
 
 void Person::display(){
@@ -35,39 +47,66 @@ void Person::display(){
 }
 
 void Person::write(){
-	ofstream fout("ppl.dat", ios::trunc | ios::binary);
+	ofstream fout(".data/ppl.dat", ios::trunc | ios::binary);
 	if(!fout){
 		throw "People database write error!!!";
 	}
 	for(auto& i : Person::people){
+		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+		cout << "writing" << endl;
 		fout.write((char*) i, sizeof(Person));
+		i->print();
+		cout << "success" << endl;
+		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+	}
+	if(Person::people.empty()){
+		throw "database is empty!!!";
 	}
 	fout.close();
 }
 
 void Person::read(){
 	if(!Person::people.empty()){
+		for(auto& i : Person::people)delete(i);
 		Person::people.clear();
 	}
-	ifstream fin("ppl.dat", ios::binary);
+	ifstream fin(".data/ppl.dat", ios::binary);
 	if(!fin){
 		throw "People database read error!!!";
 	}
 	while(!fin.eof()){
-		Person temp ;
-		fin.read((char*) &temp, sizeof(Person));
-		Person::people.push_back(&temp);
+		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+		cout << "reading" << endl;
+		Person* temp = new Person;
+		fin.read((char*) temp, sizeof(Person));
+		if(temp->empty()){
+			delete(temp);
+			throw "database empty!!!";
+		}
+		Person::people.push_back(temp);
+		temp->print();
+		cout << "success" << endl;
+		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+	}
+	if(Person::people.empty()){
+		throw "database is empty!!!";
 	}
 	fin.close();
 }
 
 void Person::print(){
+	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 	cout << "ID: " << id << endl;
 	cout << "Name: " << name << endl;
 	cout << "Age: " << age << endl;
 	cout << "Address: " << address << endl;
+	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 }
 
 void Person::setacc(Account* account){
 	acc = account;
+}
+
+bool Person::empty(){
+	return isEmpty;
 }

@@ -19,11 +19,13 @@ class Person;
 class Account{
 public:
 	Account(Person* account_holder, int accno);
-	Account(){}
+	Account();
 	
 	void withdraw(int b);
 	void add_money(int b);
 	void set_min_bal(int b);
+	void print();
+	bool empty();
 	
 	static vector<Account*> accounts;
 	static void add();
@@ -36,6 +38,7 @@ private:
 	int account_no;
 	int balance;
 	int min_bal;
+	bool isEmpty;
 };
 
 
