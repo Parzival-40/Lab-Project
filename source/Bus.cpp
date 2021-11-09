@@ -19,18 +19,35 @@ bool Bus::empty(){
 	return isEmpty;
 }
 
+Bus* Bus::find(Station* from, Station* to){
+	for(auto& i : Bus::buses){
+		if(i->from == from && i->to == to){
+			return i;
+		}
+	}
+	throw "no bus found";
+	return nullptr;
+}
+
 void Bus::add(){
 	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 	int lisc;
 	string fs;
 	string ts;
-	cout << "liscense no: "; cin >> lisc;
-	cout << "From Station: "; cin >> fs;
-	cout << "To Station: "; cin >> ts;
 	Station* fss = nullptr;
 	Station* tss = nullptr;
+	cout << "liscense no: "; cin >> lisc;
+	cout << "From Station: "; cin >> fs;
 	try{
 		fss = Station::find(fs);
+	} catch(const string& e){
+		cout << e << endl;
+		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+		return;
+	}
+	cout << "To Station: "; cin >> ts;
+	
+	try{
 		tss = Station::find(ts);
 	} catch(const string& e){
 		cout << e << endl;
@@ -43,6 +60,10 @@ void Bus::add(){
 }
 
 void Bus::display(){
+	if(Bus::buses.empty()){
+		cout << "database empty!!!" << endl;
+		return;
+	}
 	for(auto& i : Bus::buses){
 		i->print();
 	}
@@ -83,7 +104,8 @@ void Bus::read(){
 		fin.read((char*) temp, sizeof(Bus));
 		if(temp->empty()){
 			delete(temp);
-			throw "database empty!!!";
+			if(Bus::buses.empty())throw "database empty!!!";
+			else continue;
 		}
 		Bus::buses.push_back(temp);
 		cout << "success" << endl;

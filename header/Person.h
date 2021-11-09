@@ -20,7 +20,7 @@ public:
 	Person(int id, string name, int age, string address);
 	Person();
 
-	void print();
+	virtual void print();
 	void setacc(Account*);
 	bool empty();
 	

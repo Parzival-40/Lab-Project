@@ -22,7 +22,7 @@ Person* Person::find(const int& checkid){
 	for(auto& i : Person::people){
 		if(i->id == checkid)return i;
 	}
-	throw "person with id: " + to_string(checkid) + " not found in person database!!!";
+	throw "person with id: " + to_string(checkid) + " not found in person database!!!\nconsider registering in people database";
 }
 
 void Person::add(){
@@ -41,6 +41,10 @@ void Person::add(){
 }
 
 void Person::display(){
+	if(Person::people.empty()){
+		cout << "database empty!!!" << endl;
+		return;
+	}
 	for(auto& i : Person::people){
 		i->print();
 	}
@@ -67,7 +71,8 @@ void Person::write(){
 
 void Person::read(){
 	if(!Person::people.empty()){
-		for(auto& i : Person::people)delete(i);
+		for(auto& i : Person::people)
+			delete(i);
 		Person::people.clear();
 	}
 	ifstream fin(".data/ppl.dat", ios::binary);
@@ -81,7 +86,8 @@ void Person::read(){
 		fin.read((char*) temp, sizeof(Person));
 		if(temp->empty()){
 			delete(temp);
-			throw "database empty!!!";
+			if(Person::people.empty())throw "database empty!!!";
+			else continue;
 		}
 		Person::people.push_back(temp);
 		temp->print();

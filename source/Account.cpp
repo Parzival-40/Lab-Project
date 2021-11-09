@@ -5,9 +5,10 @@ vector<Account*> Account::accounts;
 Account::Account(Person* account_holder, int accno)
 	:isEmpty(false)
 	,account_holder(account_holder)
-	,account_no(accno)
-	,balance(NULL)
-	,min_bal(NULL){
+	,min_bal(150)
+	,account_no(accno){
+	srand(time(nullptr));
+	balance = 1000 + rand() % 500;
 	account_holder->setacc(this);
 }
 
@@ -19,7 +20,7 @@ Account::Account()
 	,min_bal(NULL){}
 
 void Account::withdraw(int b){
-	if(b + min_bal <= balance){
+	if(b + min_bal >= balance){
 		throw("Not enough balance");
 	}
 	
@@ -40,6 +41,8 @@ void Account::set_min_bal(int b){
 void Account::print(){
 	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 	cout << "Account no.: " << account_no << endl;
+	cout << "Balance: " << balance << endl;
+	cout << "Minimum balance: " << min_bal << endl;
 	cout << "Account holder: " << endl;
 	account_holder->print();
 	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
@@ -69,9 +72,12 @@ void Account::add(){
 }
 
 void Account::display(){
+	if(Account::accounts.empty()){
+		cout << "database empty!!!" << endl;
+		return;
+	}
 	for(auto& i : Account::accounts){
-		cout << "Account holder info: " << endl;
-		i->account_holder->print();
+		i->print();
 	}
 }
 
@@ -110,7 +116,8 @@ void Account::read(){
 		fin.read((char*) temp, sizeof(Account));
 		if(temp->empty()){
 			delete(temp);
-			throw "database empty!!!";
+			if(Account::accounts.empty())throw "database empty!!!";
+			else continue;
 		}
 		temp->print();
 		Account::accounts.push_back(temp);

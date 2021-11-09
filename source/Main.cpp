@@ -44,6 +44,11 @@ void init(){
 	} catch(const char* e){
 		cout << e << endl;
 	}
+	try{
+		Passenger::read();
+	} catch(const char* e){
+		cout << e << endl;
+	}
 }
 void commit(){
 	try{
@@ -66,6 +71,11 @@ void commit(){
 	} catch(const char* e){
 		cout << e << endl;
 	}
+	try{
+		Passenger::write();
+	} catch(const char* e){
+		cout << e << endl;
+	}
 }
 
 void add(type t){
@@ -82,6 +92,9 @@ void add(type t){
 		case type::Station:
 			Station::add();
 			break;
+		case type::Passenger:
+			Passenger::add();
+			break;
 		default:
 			break;
 	}
@@ -91,28 +104,35 @@ void read(type t){
 		case type::Account:
 			try{
 				Account::read();
-			} catch(const string& e){
+			} catch(const char* e){
 				cout << e << endl;
 			}
 			break;
 		case type::Bus:
 			try{
 				Bus::read();
-			} catch(const string& e){
+			} catch(const char* e){
 				cout << e << endl;
 			}
 			break;
 		case type::Person:
 			try{
 				Person::read();
-			} catch(const string& e){
+			} catch(const char* e){
 				cout << e << endl;
 			}
 			break;
 		case type::Station:
 			try{
 				Station::read();
-			} catch(const string& e){
+			} catch(const char* e){
+				cout << e << endl;
+			}
+			break;
+		case type::Passenger:
+			try{
+				Passenger::read();
+			} catch(const char* e){
 				cout << e << endl;
 			}
 			break;
@@ -125,28 +145,35 @@ void write(type t){
 		case type::Account:
 			try{
 				Account::write();
-			} catch(const string& e){
+			} catch(const char* e){
 				cout << e << endl;
 			}
 			break;
 		case type::Bus:
 			try{
 				Bus::write();
-			} catch(const string& e){
+			} catch(const char* e){
 				cout << e << endl;
 			}
 			break;
 		case type::Person:
 			try{
 				Person::write();
-			} catch(const string& e){
+			} catch(const char* e){
 				cout << e << endl;
 			}
 			break;
 		case type::Station:
 			try{
 				Station::write();
-			} catch(const string& e){
+			} catch(const char* e){
+				cout << e << endl;
+			}
+			break;
+		case type::Passenger:
+			try{
+				Passenger::write();
+			} catch(const char* e){
 				cout << e << endl;
 			}
 			break;
@@ -167,6 +194,9 @@ void display(type t){
 			break;
 		case type::Station:
 			Station::display();
+			break;
+		case type::Passenger:
+			Passenger::display();
 			break;
 		default:
 			break;
@@ -214,9 +244,8 @@ void reg(type t){
 			default:
 				break;
 		}
-		cout << "perss any key to continue...";
+		cout << "perss enter to continue...";
 
-		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin.get();
 		system("cls");
@@ -229,7 +258,7 @@ int main(){
 	init();
 	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 
-	cout << "perss any key to continue...";
+	cout << "perss enter to continue...";
 
 	cin.get();
 	system("cls");
@@ -238,16 +267,17 @@ int main(){
 
 	while(running){
 		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
-		cout<< "[1] Manage people information" << endl
-			<< "[2] Manage account information" << endl
-			<< "[3] Manage bus information" << endl
-			<< "[4] Manage Station information" << endl
+		cout<< "[1] Manage people" << endl
+			<< "[2] Manage accounts" << endl
+			<< "[3] Manage buses" << endl
+			<< "[4] Manage stations" << endl
+			<< "[5] Manage passengers"<<endl
 			<< "[0] exit" << endl;
 		cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 
 
 		int c;
-		if(!(cin >> c) || c < 0 || c>4){
+		if(!(cin >> c) || c < 0 || c>5){
 			cout << "please enter a valid choice";
 
 			cin.clear();
@@ -273,26 +303,21 @@ int main(){
 			case 4:
 				reg(type::Station);
 				break;
+			case 5:
+				reg(type::Passenger);
+				break;
 			default:
 				break;
 		}
-		cout << "perss any key to continue...";
-
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cin.get();
-		system("cls");
 	}
 
 	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 	cout << "Writing changes to database" << endl;
 	commit();
 	cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
+
+	cout << "perss enter to exit...";
 	
-	cin.get();
-	system("cls");
-
-	cout << "perss any key to exit...";
-
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	cin.get();
 }

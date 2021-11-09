@@ -21,6 +21,7 @@ public:
 	bool empty();
 
 	static vector<Bus*> buses;
+	static Bus* find(Station*,Station*);
 	static void add();
 	static void display();
 	static void write();

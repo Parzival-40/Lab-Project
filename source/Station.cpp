@@ -42,6 +42,10 @@ void Station::add(){
 }
 
 void Station::display(){
+	if(Station::stations.empty()){
+		cout << "database empty!!!" << endl;
+		return;
+	}
 	for(auto& i : Station::stations){
 		i->print();
 	}
@@ -83,7 +87,8 @@ void Station::read(){
 		fin.read((char*)temp, sizeof(Station));
 		if(temp->empty()){
 			delete(temp);
-			throw "database empty!!!";
+			if(Station::stations.empty())throw "database empty!!!";
+			else continue;
 		}
 		Station::stations.push_back(temp);
 		temp->print();

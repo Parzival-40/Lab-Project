@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <ctime>
 #include "Person.h"
 
 using namespace std;

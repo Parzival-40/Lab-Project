@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+#include <iostream>
 #include "Station.h"
 #include "Bus.h"
 #include "Person.h"
@@ -14,10 +16,25 @@ using namespace std;
 
 class Passenger:Person{
 public:
-	Passenger(Person*);
+	Passenger(Person*, Bus*, Station*, Station*);
 	~Passenger();
-	Passenger() = default;
+	Passenger();
+
 	void issueTicket(Bus*, Station*, Station*);
+	void print();
+
+
+	static vector<Passenger*> list;
+	static void add();
+	static void write();
+	static void read();
+	static void display();
+
 private:
-	Ticket* hisTicket;
+
+	vector<Ticket*> tickets;
+	bool isEmpty;
+	Bus* bus;
+	Station* from;
+	Station* to;
 };
